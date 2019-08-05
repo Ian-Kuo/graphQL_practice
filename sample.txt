@@ -1,0 +1,37 @@
+
+query {
+  hello
+}
+
+query {
+  users{
+    id,
+    lastName
+  }
+}
+
+query {
+  user(id:1){
+    id,
+    lastName
+  }
+}
+
+query {
+  posts{
+    id,
+    userId,
+    title
+  },
+}
+
+query {
+  user(id:1){
+    id
+    lastName
+    posts{
+      title
+      comment
+    }
+  }
+}

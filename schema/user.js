@@ -16,16 +16,37 @@ const defaultUserData = [
   }
 ]
 
+const defaultPostData = [{
+  id:1,
+  userId:1,
+  title:"Garph is awsome",
+  comment:"good share"
+},
+{
+  id:2,
+  userId:1,
+  title:"What different with Rest",
+  comment:"good share"
+}]
+
 const userDefs = gql`
   type User{
-    id:String!,
+    id:Int!,
     firstName:String,
     lastName:String,
-    phone:String
+    phone:String,
+    posts:[Post]
+  },
+  type Post{
+    id:Int!,
+    userId:String,
+    title:String,
+    comment:String,
   }
   extend type Query {
     users: [User],
-    user(id:Int!):User
+    user(id:Int!):User,
+    posts: [Post]
   },
   type Mutation{
     addUser(firstName: String, lastName: String, phone: String): User
@@ -39,10 +60,13 @@ const userResolvers = {
       return defaultUserData
     },
     user: (root, { id }) => {
-      return defaultUserData.filter(character => {
-        return (character.id = id)
-      })[0]
+      return _.find(defaultUserData, (v) =>{
+        return v.id == id
+      })
     },
+    posts:() =>{
+      return defaultPostData
+    }
   },
   Mutation:{
     addUser: function (v,args) {
@@ -52,6 +76,11 @@ const userResolvers = {
       defaultUserData.push(obj)
       return id.id
     },
+  },
+  User: {
+    posts: (user) => {
+      return _.filter(defaultPostData, (v) => {return v.userId == user.id})
+    }
   }
 };
 
