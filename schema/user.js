@@ -10,8 +10,8 @@ const defaultUserData = [
   },
   {
       id: 2,
-      firstName: "Ana",
-      lastName: "Kim",
+      firstName: "Tony",
+      lastName: "Stark",
       phone: "091234567"
   }
 ]
@@ -27,6 +27,18 @@ const defaultPostData = [{
   userId:1,
   title:"What different with Rest",
   comment:"good share"
+},
+{
+  id:3,
+  userId:2,
+  title:"I am rich man",
+  comment:"oh!!!!"
+},
+{
+  id:4,
+  userId:2,
+  title:"My super power is money",
+  comment:""
 }]
 
 const userDefs = gql`
