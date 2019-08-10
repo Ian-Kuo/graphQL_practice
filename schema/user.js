@@ -62,6 +62,7 @@ const userDefs = gql`
   },
   type Mutation{
     addUser(firstName: String, lastName: String, phone: String): User
+    deleteUser(id:Int): Boolean
   }
 `;
 
@@ -84,10 +85,16 @@ const userResolvers = {
     addUser: function (v,args) {
       let id = _.maxBy(defaultUserData, (o) => { return o.id; });
       let obj = {id: Number(id.id) + 1,firstName: args.firstName, lastName : args.lastName}
-      console.log('==============>', v)
       defaultUserData.push(obj)
-      return id.id
+      return obj
     },
+    deleteUser: (v, args) => {
+      let obj = _.findIndex(defaultUserData, function(o) { return o.id == args.id; });
+      if(obj > -1){
+        defaultUserData.pop(obj)
+      }
+      return true
+    }
   },
   User: {
     posts: (user) => {

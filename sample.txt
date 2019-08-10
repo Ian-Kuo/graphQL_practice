@@ -35,3 +35,14 @@ query {
     }
   }
 }
+
+mutation {
+  addUser(firstName: "Star", lastName: "War", phone:"0987654321") {
+    id
+    firstName
+  }
+}
+
+mutation {
+  deleteUser(id:3)
+}
